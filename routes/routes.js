@@ -23,4 +23,27 @@ router.post('/signin', UserPostControllerInstance.signInUser);  // Route to hand
 router.post('/forgot-password', UserPostControllerInstance.forgotPassword);  // Route to handle forgot password
 router.post('/change-password', UserPostControllerInstance.changePassword);  // Route to handle change password
 
+// Đăng xuất
+router.get("/signout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).send("Error while signing out");
+    }
+
+    // Hủy session
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).send("Error while destroying session");
+      }
+
+      // Xóa cookie
+      res.clearCookie("connect.sid");
+
+      // Chuyển hướng về trang login
+      res.redirect("/user/signin");
+    });
+  });
+});
+
+
 export default router;  // Exporting the router instance for use in other parts of the application

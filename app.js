@@ -37,8 +37,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL:
-        "https://nodejs-authentication-system-l2pu.onrender.com/auth/google/callback",
+      callbackURL:"http://localhost:3000/auth/google/callback",
       scope: ["profile", "email"],
     },
     function (accessToken, refreshToken, profile, callback) {
@@ -65,8 +64,18 @@ connectUsingMongoose();
 
 //ROUTES
 app.get("/", (req, res) => {
-  res.send("Hey Ninja ! Go to /user/signin for the login page.");
+    if (req.user) {
+    res.render("homepage", {
+      fullname: "Lê Trần Hoài Lộc",
+      studentId: "123456789",
+      user: req.user
+    });
+  } else {
+    res.render("homepage", { user: null });
+  }
 });
+
+
 app.use("/user", router);
 app.use("/auth", authrouter);
 app.use(express.static("public"));

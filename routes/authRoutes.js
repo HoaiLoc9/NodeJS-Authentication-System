@@ -8,13 +8,31 @@ dotenv.config();  // Loading environment variables from .env file
 const authRouter = express.Router(); // Creating an instance of express Router for handling authentication routes
 const googleSignIn = new googleSignInController(); // Creating an instance of GoogleSignInController
 
-// OAuth2 login with Google
+// // OAuth2 login with Google
 authRouter.get("/google", passport.authenticate('google', { scope: ['email', 'profile'] }));
 
+// // Google OAuth2 callback
+// authRouter.get("/google/callback",
+//     passport.authenticate("google", {
+//         successRedirect: process.env.CLIENT_URL,
+//         failureRedirect: "/login/failed"
+//     })
+// );
+
 // Google OAuth2 callback
+// authRouter.get(
+//   "/google/callback",
+//   passport.authenticate("google", {
+//     failureRedirect: "/auth/login/failed",
+//   }),
+//   (req, res) => {
+//     // Nếu login thành công, redirect về CLIENT_URL
+//     res.redirect(process.env.CLIENT_URL || "/");
+//   }
+// );
 authRouter.get("/google/callback",
     passport.authenticate("google", {
-        successRedirect: process.env.CLIENT_URL,
+        successRedirect: "/",       // 👈 redirect về homepage
         failureRedirect: "/login/failed"
     })
 );
