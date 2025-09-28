@@ -106,3 +106,8 @@ This project was created by [Ravikant Singh](https://github.com/ravikantsingh12)
 ## Follow me on
 
 - [LinkedIn](https://www.linkedin.com/in/ravikant-singh-327a98241)
+```bash
+login with google and normal.
+```
+![page](https://github.com/HoaiLoc9/NodeJS-Authentication-System/blob/main/public/page.png?raw=true)
+![db](https://github.com/HoaiLoc9/NodeJS-Authentication-System/blob/main/public/db.png?raw=true)
